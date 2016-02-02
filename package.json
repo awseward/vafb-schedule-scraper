@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/awseward/vafb-schedule-scraper/issues"
   },
-  "homepage": "https://github.com/awseward/vafb-schedule-scraper#readme"
+  "homepage": "https://github.com/awseward/vafb-schedule-scraper#readme",
+  "devDependencies": {
+    "babel-eslint": "^4.1.8"
+  }
 }
