@@ -17,6 +17,9 @@
     "url": "https://github.com/awseward/vafb-schedule-scraper/issues"
   },
   "homepage": "https://github.com/awseward/vafb-schedule-scraper#readme",
+  "dependencies": {
+    "xray": "^0.5.0"
+  },
   "devDependencies": {
     "babel-eslint": "^4.1.8"
   }
