@@ -1,55 +1,39 @@
 var xRay = require('x-ray');
-// Not sure why they have you do this in the demo...
 var x = xRay();
 
 var scheduleUrl = 'http://www.spacearchive.info/vafbsked.htm';
 
-function _print(error, result) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log(result);
-  }
+function _isValidRow(row) {
+  return row.cells.length === 5;
 }
 
-function _getTable(callback) {
-  x(scheduleUrl, 'table@html')(callback);
+function _cleanString(input) {
+  return (input || '').trim();
 }
 
-function _getRows(tableHtml, callback) {
-  x(tableHtml, ['tr@html'])(callback);
-}
+function _extractRowData(row) {
+  var cells = row.cells.map(_cleanString);
 
-function _getCells(rowHtml, callback) {
-  x(rowHtml, ['td'])(callback);
-}
-
-function _extractRowData(cells) {
   return {
     date: cells[0],
-    timeWindow: cells[1],
+    time: cells[1],
     vehicle: cells[2],
     silo: cells[3],
     comments: cells[4],
   };
 }
 
-_getTable(function(err, res) {
-  _getRows(res, function(err1, res1) {
-    var rows = res1.slice(1);
-    rows.forEach(function(row) {
-      _getCells(row, function(err2, res2) {
-        console.log(_extractRowData(cells));
-      });
-    });
-  });
+x(scheduleUrl, 'table', {
+  columnNames: x('tr', ['th']),
+  rows: x('tr', [{
+    cells: x(['td']),
+  }]),
+})(function (err, res) {
+  var launches = res.rows
+    .filter(_isValidRow)
+    .map(_extractRowData);
+
+  console.log('columnNames', res.columnNames);
+  console.log('launches', launches);
 });
 
-// _getRows(function(error, result) {
-//   var thing = result.slice(1);
-//   thing.forEach(function(row) {
-//     _getCells(row, function(error, cells) {
-//       console.log(_extractRowData(cells));
-//     });
-//   });
-// });
