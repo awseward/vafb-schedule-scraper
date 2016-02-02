@@ -3,6 +3,12 @@ var x = xRay();
 
 var scheduleUrl = 'http://www.spacearchive.info/vafbsked.htm';
 
+function _log(label, thing) {
+  var json = JSON.stringify(thing, undefined, 2);
+  console.log('*** ' + label);
+  console.log(json);
+}
+
 function _isValidRow(row) {
   return row.cells.length === 5;
 }
@@ -12,15 +18,13 @@ function _cleanString(input) {
 }
 
 function _extractRowData(row) {
-  var cells = row.cells.map(_cleanString);
+  var colNames = [ 'date', 'time', 'vehicle', 'silo', 'comments' ];
 
-  return {
-    date: cells[0],
-    time: cells[1],
-    vehicle: cells[2],
-    silo: cells[3],
-    comments: cells[4],
-  };
+  return colNames.reduce(function(seed, colName, index) {
+    seed[colName] = _cleanString(row.cells[index]);
+
+    return seed;
+  }, {});
 }
 
 x(scheduleUrl, 'table', {
@@ -33,7 +37,6 @@ x(scheduleUrl, 'table', {
     .filter(_isValidRow)
     .map(_extractRowData);
 
-  console.log('columnNames', res.columnNames);
-  console.log('launches', launches);
+  _log('launches', launches);
 });
 
