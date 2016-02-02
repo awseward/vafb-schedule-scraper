@@ -4,7 +4,8 @@
   "description": "Simple tool to scrape rocket launch dates from Vandenberge AFB's launch schedule site",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "echo TODO",
+    "test": "echo TODO: Set up tests && exit 1"
   },
   "repository": {
     "type": "git",
