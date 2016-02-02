@@ -1,7 +1,7 @@
 {
   "name": "vafb-schedule-scraper",
   "version": "0.0.1",
-  "description": "Simple tool to scrape rocket launch dates from Vandenberge AFB's launch schedule site",
+  "description": "Simple tool to scrape launch dates from Vandenberge AFB's launch schedule site",
   "main": "index.js",
   "scripts": {
     "start": "echo TODO",
