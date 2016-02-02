@@ -10,10 +10,8 @@ function _log(label, thing) {
   console.log(json);
 }
 
-vafb.getLaunches(function(error, result) {
-  if (error) {
-    console.error(error);
-  } else {
-    _log('launches', result);
-  }
-});
+var _logLaunches = _log.bind(null, 'LAUNCHES');
+
+vafb.getLaunches()
+  .then(_logLaunches)
+  .catch(console.error);
